@@ -89,6 +89,7 @@ RUN python -m pip install \
     --index-url "${TORCH_INDEX_URL}" \
   && python -m pip install -r requirements.txt \
   && python -m pip install "face_recognition==1.3.0" \
+  && python -m pip install funasr modelscope \
   && python -m pip check
 
 #
