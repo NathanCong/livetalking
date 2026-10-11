@@ -23,12 +23,14 @@ ls -la ./volumes/models
 #
 # 设置豆包 TTS 环境变量
 #
+export DOUBAO_APPID='你的豆包 APP ID'
+export DOUBAO_TOKEN='你的豆包访问令牌'
 export DOUBAO_API_KEY='你的豆包 API Key'
 
 #
 # 启动服务
 #
-sudo --preserve-env=DOUBAO_API_KEY bash ./scripts/start.sh \
+sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/start.sh \
   --avatar-id [AVATAR_ID] \
   --avatar-voice-id [AVATAR_VOICE_ID] \
   --batch-size [BATCH_SIZE] \
@@ -71,7 +73,7 @@ sudo bash ./scripts/stop.sh
 #
 # 启动【罗素素】数字人
 #
-sudo --preserve-env=DOUBAO_API_KEY bash ./scripts/start.sh \
+sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/start.sh \
   --avatar-id lss \
   --avatar-voice-id zh_female_qingxinnvsheng_uranus_bigtts \
   --listen-port 8011 \
@@ -81,7 +83,7 @@ sudo --preserve-env=DOUBAO_API_KEY bash ./scripts/start.sh \
 #
 # 启动【梁医生】数字人
 #
-sudo --preserve-env=DOUBAO_API_KEY bash ./scripts/start.sh \
+sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/start.sh \
   --avatar-id lys \
   --avatar-voice-id zh_male_dongfanghaoran_uranus_bigtts \
   --listen-port 8012 \
@@ -91,7 +93,7 @@ sudo --preserve-env=DOUBAO_API_KEY bash ./scripts/start.sh \
 #
 # 启动【小伊助手】数字人
 #
-sudo --preserve-env=DOUBAO_API_KEY bash ./scripts/start.sh \
+sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/start.sh \
   --avatar-id xyzs \
   --avatar-voice-id zh_female_qingxinnvsheng_uranus_bigtts \
   --listen-port 8013 \
