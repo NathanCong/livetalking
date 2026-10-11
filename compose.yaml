@@ -42,13 +42,13 @@ services:
     #
     volumes:
       - type: bind
-        source: ./models
+        source: ./volumes/models
         target: /opt/livetalking/models
         read_only: true
         bind:
           create_host_path: false
       - type: bind
-        source: ./data
+        source: ./volumes/data
         target: /opt/livetalking/data
         bind:
           create_host_path: false
