@@ -5,6 +5,13 @@
 .env
 
 #
-# 忽略：volumes 目录
+# 忽略：volumes/data 目录下的所有文件
 #
-volumes/
+volumes/data/*
+!volumes/data/.gitkeep
+
+#
+# 忽略：volumes/models 目录下的所有文件
+#
+volumes/models/*
+!volumes/models/.gitkeep
