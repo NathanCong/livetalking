@@ -81,9 +81,11 @@ if [[ "$GPU_DEVICE_TYPE" == "v100" ]]; then
 fi
 
 #
-# 设置 DASHSCOPE_API_KEY 环境变量，如果未设置则默认为空字符串
+# 设置豆包 TTS 环境变量
 #
-DASHSCOPE_API_KEY="${DASHSCOPE_API_KEY:-}"
+DOUBAO_API_KEY="${DOUBAO_API_KEY:-}"
+
+[[ -n "$DOUBAO_API_KEY" ]] || { echo "错误：DOUBAO_API_KEY 环境变量不能为空！" >&2; exit 1; }
 
 #
 # 创建 .env 文件
@@ -96,7 +98,7 @@ MAX_SESSION=${MAX_SESSION}
 LISTEN_PORT=${LISTEN_PORT}
 GPU_DEVICE_TYPE=${GPU_DEVICE_TYPE}
 GPU_DEVICE_ID=${GPU_DEVICE_ID}
-DASHSCOPE_API_KEY=${DASHSCOPE_API_KEY}
+DOUBAO_API_KEY=${DOUBAO_API_KEY}
 EOF
 
 #
