@@ -81,11 +81,15 @@ if [[ "$GPU_DEVICE_TYPE" == "v100" ]]; then
 fi
 
 #
-# 设置豆包 TTS 环境变量
+# 设置环境变量
 #
+DOUBAO_APPID="${DOUBAO_APPID:-}"
+DOUBAO_TOKEN="${DOUBAO_TOKEN:-}"
 DOUBAO_API_KEY="${DOUBAO_API_KEY:-}"
 
 [[ -n "$DOUBAO_API_KEY" ]] || { echo "错误：DOUBAO_API_KEY 环境变量不能为空！" >&2; exit 1; }
+[[ -n "$DOUBAO_APPID" ]] || { echo "错误：DOUBAO_APPID 环境变量不能为空！" >&2; exit 1; }
+[[ -n "$DOUBAO_TOKEN" ]] || { echo "错误：DOUBAO_TOKEN 环境变量不能为空！" >&2; exit 1; }
 
 #
 # 创建 .env 文件
@@ -98,6 +102,8 @@ MAX_SESSION=${MAX_SESSION}
 LISTEN_PORT=${LISTEN_PORT}
 GPU_DEVICE_TYPE=${GPU_DEVICE_TYPE}
 GPU_DEVICE_ID=${GPU_DEVICE_ID}
+DOUBAO_APPID=${DOUBAO_APPID}
+DOUBAO_TOKEN=${DOUBAO_TOKEN}
 DOUBAO_API_KEY=${DOUBAO_API_KEY}
 EOF
 
