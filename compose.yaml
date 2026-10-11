@@ -6,6 +6,10 @@ services:
     #
     image: livetalking:${GPU_DEVICE_TYPE}
     #
+    # 设置容器名称
+    #
+    container_name: livetalking-${AVATAR_ID}
+    #
     # 设置构建路径
     #
     build:
@@ -93,6 +97,6 @@ services:
       - --batch_size
       - "8"
       - --max_session
-      - "1"
+      - "2"
       - --listenport
       - "${LISTEN_PORT}"
