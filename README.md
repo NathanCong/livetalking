@@ -1,6 +1,6 @@
 # livetalking
 
-本项目使用 Docker 部署 LiveTalking 数字人服务。服务启动后通过 WebRTC 提供数字人会话，并使用豆包 TTS 生成语音。
+本项目使用 Docker 部署 LiveTalking 数字人服务。服务启动后通过 WebRTC 提供数字人会话，使用豆包 TTS 生成语音，并默认使用阿里云百炼的通义千问 `qwen-plus` 进行大模型对话。
 
 ## 服务部署
 
@@ -21,16 +21,21 @@ ls -la ./volumes/models
 
 ```bash
 #
-# 设置豆包 TTS 环境变量
+# 设置豆包环境变量（TTS）
 #
 export DOUBAO_APPID='你的豆包 APP ID'
 export DOUBAO_TOKEN='你的豆包访问令牌'
 export DOUBAO_API_KEY='你的豆包 API Key'
 
 #
+# 设置阿里云百炼大模型环境变量（语音识别 + 语言大模型）
+#
+export DASHSCOPE_API_KEY='你的阿里云百炼 API Key'
+
+#
 # 启动服务
 #
-sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/start.sh \
+sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY,DASHSCOPE_API_KEY bash ./scripts/start.sh \
   --avatar-id [AVATAR_ID] \
   --avatar-voice-id [AVATAR_VOICE_ID] \
   --batch-size [BATCH_SIZE] \
@@ -73,7 +78,7 @@ sudo bash ./scripts/stop.sh
 #
 # 启动【罗素素】数字人
 #
-sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/start.sh \
+sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY,DASHSCOPE_API_KEY bash ./scripts/start.sh \
   --avatar-id lss \
   --avatar-voice-id zh_female_qingxinnvsheng_uranus_bigtts \
   --listen-port 8011 \
@@ -83,7 +88,7 @@ sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/star
 #
 # 启动【梁医生】数字人
 #
-sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/start.sh \
+sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY,DASHSCOPE_API_KEY bash ./scripts/start.sh \
   --avatar-id lys \
   --avatar-voice-id zh_male_dongfanghaoran_uranus_bigtts \
   --listen-port 8012 \
@@ -93,7 +98,7 @@ sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/star
 #
 # 启动【小伊助手】数字人
 #
-sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY bash ./scripts/start.sh \
+sudo --preserve-env=DOUBAO_APPID,DOUBAO_TOKEN,DOUBAO_API_KEY,DASHSCOPE_API_KEY bash ./scripts/start.sh \
   --avatar-id xyzs \
   --avatar-voice-id zh_female_qingxinnvsheng_uranus_bigtts \
   --listen-port 8013 \

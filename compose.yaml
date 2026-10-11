@@ -69,6 +69,7 @@ services:
       DOUBAO_APPID: ${DOUBAO_APPID}
       DOUBAO_TOKEN: ${DOUBAO_TOKEN}
       DOUBAO_API_KEY: ${DOUBAO_API_KEY}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY}
     #
     # 设置健康检查
     #
