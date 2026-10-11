@@ -60,9 +60,7 @@ services:
     # 设置环境变量
     #
     environment:
-      DOUBAO_APPID: ${DOUBAO_APPID}
-      DOUBAO_TOKEN: ${DOUBAO_TOKEN}
-      DOUBAO_API_KEY: ${DOUBAO_API_KEY}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY}
     #
     # 设置健康检查
     #
@@ -91,7 +89,7 @@ services:
       - --avatar_id
       - ${AVATAR_ID}
       - --tts
-      - doubao
+      - qwentts
       - --REF_FILE
       - ${REF_FILE}
       - --batch_size
