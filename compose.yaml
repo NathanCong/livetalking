@@ -91,10 +91,10 @@ services:
       - --tts
       - qwentts
       - --REF_FILE
-      - ${REF_FILE}
+      - ${AVATAR_VOICE_ID}
       - --batch_size
-      - "8"
+      - "${BATCH_SIZE}"
       - --max_session
-      - "2"
+      - "${MAX_SESSION}"
       - --listenport
       - "${LISTEN_PORT}"
