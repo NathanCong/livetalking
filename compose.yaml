@@ -1,32 +1,45 @@
+# 通过 scripts/start.sh 传入启动参数，使用默认 Compose 项目名。
 services:
   livetalking:
-    image: livetalking:local
+    #
+    # 设置镜像名称
+    #
+    image: livetalking:${GPU_DEVICE_TYPE}
+    #
+    # 设置构建路径
+    #
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        LIVETALKING_REF: ${LIVETALKING_REF:-eaa2b91559a5c2ed6127e17728efd52b7c407a0d}
-    platform: linux/amd64
+    #
+    # 设置开机自启
+    #
     restart: unless-stopped
+    #
+    # 启用一个轻量的 init 进程
+    #
     init: true
-
-    # Linux 主机网络让 WebRTC 使用宿主机 IP 和动态 UDP 端口，无需映射 ports。
+    #
+    # 设置网络模式
+    #
     network_mode: host
+    #
+    # 设置共享内存
+    #
     shm_size: "1gb"
-
-    # 宿主机需安装 NVIDIA 驱动和 NVIDIA Container Toolkit。
+    #
+    # 设置 GPU 资源
+    #
     deploy:
       resources:
         reservations:
           devices:
             - driver: nvidia
-              device_ids: ["${GPU_DEVICE_ID:-0}"]
+              device_ids: ["${GPU_DEVICE_ID}"]
               capabilities: [gpu]
-
-    environment:
-      # 仅 chat 模式需要这个密钥；直接文本播报无需配置。
-      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
-
+    #
+    # 设置映射目录
+    #
     volumes:
       - type: bind
         source: ./models
@@ -37,46 +50,43 @@ services:
       - type: bind
         source: ./data
         target: /opt/livetalking/data
+        read_only: true
         bind:
           create_host_path: false
-      - model-cache:/root/.cache
-
-    command:
-      - --transport
-      - webrtc
-      - --model
-      - wav2lip
-      - --avatar_id
-      - ${AVATAR_ID:-wav2lip256_avatar1}
-      - --tts
-      - edgetts
-      - --REF_FILE
-      - ${TTS_VOICE:-zh-CN-YunxiaNeural}
-      - --batch_size
-      - "${BATCH_SIZE:-16}"
-      - --max_session
-      - "${MAX_SESSION:-5}"
-      - --listenport
-      - "${HTTP_PORT:-8010}"
-
-    # 检查 HTTP 页面是否可访问；不代表已经验证 WebRTC 音视频连接。
+    #
+    # 设置健康检查
+    #
     healthcheck:
-      test:
-        - CMD
-        - python
-        - -c
-        - "import sys, urllib.request; urllib.request.urlopen('http://127.0.0.1:' + sys.argv[1] + '/index.html', timeout=5).close()"
-        - "${HTTP_PORT:-8010}"
+      test: ["CMD", "curl", "-fsS", "--noproxy", "*", "--max-time", "5", "-o", "/dev/null", "http://127.0.0.1:${LISTEN_PORT}/index.html"]
       interval: 30s
       timeout: 10s
       start_period: 120s
       retries: 3
-
+    #
+    # 设置日志输出
+    #
     logging:
       driver: json-file
       options:
         max-size: "10m"
         max-file: "3"
-
-volumes:
-  model-cache:
+    #
+    # 设置启动命令
+    #
+    command:
+      - --transport
+      - webrtc
+      - --model
+      - musetalk
+      - --avatar_id
+      - ${AVATAR_ID}
+      - --tts
+      - doubao
+      - --REF_FILE
+      - ${REF_FILE}
+      - --batch_size
+      - "8"
+      - --max_session
+      - "1"
+      - --listenport
+      - "${LISTEN_PORT}"

@@ -1,4 +1,14 @@
-# 镜像源码从上游获取，本地模型、数据和密钥不进入构建上下文。
+#
+# 忽略：项目所有文件
+#
 **
+
+#
+# 保留：Dockerfile 文件
+#
 !Dockerfile
+
+#
+# 保留：.dockerignore 文件
+#
 !.dockerignore
