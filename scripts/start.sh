@@ -96,4 +96,6 @@ printf 'AVATAR_ID=%s\nREF_FILE=%s\nLISTEN_PORT=%s\nGPU_DEVICE_TYPE=%s\nGPU_DEVIC
 #
 # 构建 Docker 镜像并启动服务
 #
-docker compose -f compose.yaml --env-file .env up -d
+COMPOSE=(docker compose -f compose.yaml --env-file .env)
+"${COMPOSE[@]}" build "${BUILD_ARGS[@]}"
+"${COMPOSE[@]}" up -d --no-build
