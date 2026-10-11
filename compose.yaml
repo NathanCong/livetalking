@@ -56,6 +56,12 @@ services:
         target: /opt/livetalking/data
         bind:
           create_host_path: false
+      - type: bind
+        source: ./volumes/web/index.html
+        target: /opt/livetalking/web/index.html
+        read_only: true
+        bind:
+          create_host_path: false
     #
     # 设置环境变量
     #
