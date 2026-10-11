@@ -1,0 +1,15 @@
+
+#
+# 忽略：.env 文件
+#
+.env
+
+#
+# 忽略：models 目录
+#
+models/
+
+#
+# 忽略：data 目录
+#
+data/

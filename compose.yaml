@@ -1,0 +1,98 @@
+# 通过 scripts/start.sh 传入启动参数，使用默认 Compose 项目名。
+services:
+  livetalking:
+    #
+    # 设置镜像名称
+    #
+    image: livetalking:${GPU_DEVICE_TYPE}
+    #
+    # 设置构建路径
+    #
+    build:
+      context: .
+      dockerfile: Dockerfile
+    #
+    # 设置开机自启
+    #
+    restart: unless-stopped
+    #
+    # 启用一个轻量的 init 进程
+    #
+    init: true
+    #
+    # 设置网络模式
+    #
+    network_mode: host
+    #
+    # 设置共享内存
+    #
+    shm_size: "1gb"
+    #
+    # 设置 GPU 资源
+    #
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["${GPU_DEVICE_ID}"]
+              capabilities: [gpu]
+    #
+    # 设置映射目录
+    #
+    volumes:
+      - type: bind
+        source: ./models
+        target: /opt/livetalking/models
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./data
+        target: /opt/livetalking/data
+        bind:
+          create_host_path: false
+    #
+    # 设置环境变量
+    #
+    environment:
+      DOUBAO_APPID: ${DOUBAO_APPID}
+      DOUBAO_TOKEN: ${DOUBAO_TOKEN}
+      DOUBAO_API_KEY: ${DOUBAO_API_KEY}
+    #
+    # 设置健康检查
+    #
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "--noproxy", "*", "--max-time", "5", "-o", "/dev/null", "http://127.0.0.1:${LISTEN_PORT}/index.html"]
+      interval: 30s
+      timeout: 10s
+      start_period: 120s
+      retries: 3
+    #
+    # 设置日志输出
+    #
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+    #
+    # 设置启动命令
+    #
+    command:
+      - --transport
+      - webrtc
+      - --model
+      - musetalk
+      - --avatar_id
+      - ${AVATAR_ID}
+      - --tts
+      - doubao
+      - --REF_FILE
+      - ${REF_FILE}
+      - --batch_size
+      - "8"
+      - --max_session
+      - "1"
+      - --listenport
+      - "${LISTEN_PORT}"
