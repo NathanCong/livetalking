@@ -19,12 +19,11 @@ cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.."
 # GPU_DEVICE_TYPE  数字人 GPU 设备类型（v100 / 3090 / 5090）
 # GPU_DEVICE_ID    数字人 GPU 设备 ID（0 / 1 / ...）
 #
-export AVATAR_ID="$1"
-export REF_FILE="$2"
-export LISTEN_PORT="$3"
-export GPU_DEVICE_TYPE="${4,,}"
-export GPU_DEVICE_ID="$5"
-
+export AVATAR_ID="${1:-}"
+export REF_FILE="${2:-}"
+export LISTEN_PORT="${3:-}"
+export GPU_DEVICE_TYPE="${4:-}"
+export GPU_DEVICE_ID="${5:-}"
 #
 # 启动参数校验
 #
@@ -89,9 +88,10 @@ fi
 #
 DOUBAO_APPID=3357549641
 DOUBAO_TOKEN=7wSj2mnvz6aFibl2jDOdREFYf_NnW2wX
+DOUBAO_API_KEY=
 
-printf 'AVATAR_ID=%s\nREF_FILE=%s\nLISTEN_PORT=%s\nGPU_DEVICE_TYPE=%s\nGPU_DEVICE_ID=%s\nDOUBAO_APPID=%s\nDOUBAO_TOKEN=%s\n' \
-  "$AVATAR_ID" "$REF_FILE" "$LISTEN_PORT" "$GPU_DEVICE_TYPE" "$GPU_DEVICE_ID" "$DOUBAO_APPID" "$DOUBAO_TOKEN" > ".env"
+printf 'AVATAR_ID=%s\nREF_FILE=%s\nLISTEN_PORT=%s\nGPU_DEVICE_TYPE=%s\nGPU_DEVICE_ID=%s\nDOUBAO_APPID=%s\nDOUBAO_TOKEN=%s\nDOUBAO_API_KEY=%s\n' \
+  "$AVATAR_ID" "$REF_FILE" "$LISTEN_PORT" "$GPU_DEVICE_TYPE" "$GPU_DEVICE_ID" "$DOUBAO_APPID" "$DOUBAO_TOKEN" "$DOUBAO_API_KEY" > ".env"
 
 #
 # 构建 Docker 镜像并启动服务
