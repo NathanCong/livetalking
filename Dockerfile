@@ -49,6 +49,11 @@ WORKDIR /opt/livetalking
 # ffmpeg           音视频处理工具，可以编码、转码、合并音视频
 # libsndfile1      音频文件读写的底层库
 # libgomp1         GCC 的 OpenMP 运行库，支持多线程并行计算
+# build-essential  编译 dlib 所需的 C/C++ 工具链
+# cmake            编译 dlib 所需的构建工具
+# libopenblas-dev  dlib 数值计算依赖
+# liblapack-dev    dlib 数值计算依赖
+# libx11-dev       dlib 图像处理依赖
 #
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -58,6 +63,11 @@ RUN apt-get update \
     ffmpeg \
     libsndfile1 \
     libgomp1 \
+    build-essential \
+    cmake \
+    libopenblas-dev \
+    liblapack-dev \
+    libx11-dev \
   && rm -rf /var/lib/apt/lists/*
 
 #
@@ -78,6 +88,7 @@ RUN python -m pip install \
     "torchaudio==${TORCHAUDIO_VERSION}" \
     --index-url "${TORCH_INDEX_URL}" \
   && python -m pip install -r requirements.txt \
+  && python -m pip install "face_recognition==1.3.0" \
   && python -m pip check
 
 #
