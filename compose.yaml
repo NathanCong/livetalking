@@ -65,10 +65,17 @@ services:
         read_only: true
         bind:
           create_host_path: false
-      # LiveTalking/web/index.html（容器只读）
+      # LiveTalking/server/routes.py（容器只读）
       - type: bind
-        source: ./volumes/web/index.html
-        target: /opt/livetalking/web/index.html
+        source: ./volumes/server/routes.py
+        target: /opt/livetalking/server/routes.py
+        read_only: true
+        bind:
+          create_host_path: false
+      # LiveTalking/server/rtc_manager.py（容器只读）
+      - type: bind
+        source: ./volumes/server/rtc_manager.py
+        target: /opt/livetalking/server/rtc_manager.py
         read_only: true
         bind:
           create_host_path: false
@@ -76,6 +83,13 @@ services:
       - type: bind
         source: ./volumes/web/index-en.html
         target: /opt/livetalking/web/index-en.html
+        read_only: true
+        bind:
+          create_host_path: false
+      # LiveTalking/web/index.html（容器只读）
+      - type: bind
+        source: ./volumes/web/index.html
+        target: /opt/livetalking/web/index.html
         read_only: true
         bind:
           create_host_path: false
