@@ -45,20 +45,37 @@ services:
     # 设置映射目录
     #
     volumes:
+      # LiveTalking/avatars/base_avatar.py（容器只读）
+      - type: bind
+        source: ./volumes/avatars/base_avatar.py
+        target: /opt/livetalking/avatars/base_avatar.py
+        read_only: true
+        bind:
+          create_host_path: false
+      # LiveTalking/data（容器可写）
+      - type: bind
+        source: ./volumes/data
+        target: /opt/livetalking/data
+        bind:
+          create_host_path: false
+      # LiveTalking/models（容器只读）
       - type: bind
         source: ./volumes/models
         target: /opt/livetalking/models
         read_only: true
         bind:
           create_host_path: false
-      - type: bind
-        source: ./volumes/data
-        target: /opt/livetalking/data
-        bind:
-          create_host_path: false
+      # LiveTalking/web/index.html（容器只读）
       - type: bind
         source: ./volumes/web/index.html
         target: /opt/livetalking/web/index.html
+        read_only: true
+        bind:
+          create_host_path: false
+      # LiveTalking/web/index-en.html（容器只读）
+      - type: bind
+        source: ./volumes/web/index-en.html
+        target: /opt/livetalking/web/index-en.html
         read_only: true
         bind:
           create_host_path: false
