@@ -89,8 +89,8 @@ DOUBAO_API_KEY="${DOUBAO_API_KEY:-}"
 DASHSCOPE_API_KEY="${DASHSCOPE_API_KEY:-}"
 
 [[ -n "$DOUBAO_API_KEY" ]] || { echo "错误：DOUBAO_API_KEY 环境变量不能为空！" >&2; exit 1; }
-[[ -n "$DOUBAO_APPID" ]] || { echo "错误：DOUBAO_APPID 环境变量不能为空！" >&2; exit 1; }
-[[ -n "$DOUBAO_TOKEN" ]] || { echo "错误：DOUBAO_TOKEN 环境变量不能为空！" >&2; exit 1; }
+# [[ -n "$DOUBAO_APPID" ]] || { echo "错误：DOUBAO_APPID 环境变量不能为空！" >&2; exit 1; }
+# [[ -n "$DOUBAO_TOKEN" ]] || { echo "错误：DOUBAO_TOKEN 环境变量不能为空！" >&2; exit 1; }
 [[ -n "$DASHSCOPE_API_KEY" ]] || { echo "错误：DASHSCOPE_API_KEY 环境变量不能为空！" >&2; exit 1; }
 
 #
