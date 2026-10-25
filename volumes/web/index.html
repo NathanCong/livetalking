@@ -273,28 +273,44 @@ const rtcConfiguration = {
     codecs: {
         video: {
             codec: 'H264',
-            profileLevelId: '42e01f', // 使用高规格的H.264配置
+            // profileLevelId: '42e01f', // 使用高规格的H.264配置
             packetizationMode: 1,
             // 码率控制
-            maxBitrate: 4000000,     // 4Mbps，确保高质量
-            maxFramerate: 25,        // 与服务器端保持一致
-            minBitrate: 1500000,     // 1.5Mbps，保证基础清晰度
-            startBitrate: 2500000,   // 2.5Mbps，初始较高比特率
+            // maxBitrate: 4000000,     // 4Mbps，确保高质量
+            // maxFramerate: 25,        // 与服务器端保持一致
+            // minBitrate: 1500000,     // 1.5Mbps，保证基础清晰度
+            // startBitrate: 2500000,   // 2.5Mbps，初始较高比特率
             // 关键帧间隔设置
             keyFrameInterval: 2,     // 每2秒一个关键帧
             // 分辨率设置 - 使用设备实际分辨率
             width: window.screen.width,
-            height: window.screen.height
+            height: window.screen.height,
+            /**
+             * 临时调整的一些参数
+             */
+            profileLevelId: '42C00D',
+            maxBitrate: 3000000,    // 上限3Mbps
+            maxFramerate: 25,
+            minBitrate: 1200000,    // 最低1.2M
+            startBitrate: 2200000,  // 起始2.2M
         }
-    }
+    },
 };
 function start() {
     const config = rtcConfiguration;
-    config.iceServers =[{
-        urls: 'turn:124.221.52.222:3478?transport=udp',
-        username: 'byron',
-        credential: 'baibai@1248'
-    }];
+    config.iceServers =[
+      // {
+      //   urls: 'turn:124.221.52.222:3478?transport=udp',
+      //   username: 'byron',
+      //   credential: 'baibai@1248'
+      // },
+      {
+        urls: 'turn:62.234.188.122:3478?transport=udp',
+        username: 'NathanCong',
+        credential: 'CYN@8011'
+      },
+    ];
+    config.iceTransportPolicy = 'relay';
     if (document.getElementById('use-stun')?.checked) {
         config.iceServers = [{ urls: 'stun:stun.l.google.com:19302' }];
     }
