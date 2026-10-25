@@ -43,9 +43,8 @@ function negotiate() {
 }
 
 function start() {
-  var config = {
-    sdpSemantics: 'unified-plan',
-    iceServers: [
+  var config = { sdpSemantics: 'unified-plan' };
+  config.iceServers = [
       // {
       //   urls: 'turn:124.221.52.222:3478?transport=udp',
       //   username: 'byron',
@@ -61,9 +60,8 @@ function start() {
       //   username: 'NathanCong',
       //   credential: 'CYN@8011'
       // },
-    ],
-    iceTransportPolicy: 'all',
-  };
+    ];
+    config.iceTransportPolicy = 'all';
 
   if (document.getElementById('use-stun').checked) {
     config.iceServers = [{ urls: ['stun:stun.l.google.com:19302'] }];
