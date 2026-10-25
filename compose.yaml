@@ -93,6 +93,13 @@ services:
         read_only: true
         bind:
           create_host_path: false
+      # LiveTalking/web/client.js（容器只读）
+      - type: bind
+        source: ./volumes/web/client.js
+        target: /opt/livetalking/web/client.js
+        read_only: true
+        bind:
+          create_host_path: false
     #
     # 设置环境变量
     #
