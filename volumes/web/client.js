@@ -46,21 +46,21 @@ function start() {
   var config = {
     sdpSemantics: 'unified-plan',
     iceServers: [
-      {
-        urls: 'turn:124.221.52.222:3478?transport=udp',
-        username: 'byron',
-        credential: 'baibai@1248'
-      },
+      // {
+      //   urls: 'turn:124.221.52.222:3478?transport=udp',
+      //   username: 'byron',
+      //   credential: 'baibai@1248'
+      // },
       {
         urls: 'turn:62.234.188.122:3478?transport=udp',
         username: 'NathanCong',
         credential: 'CYN@8011'
       },
-      {
-        urls: 'turn:8.160.115.34:3478?transport=udp',
-        username: 'NathanCong',
-        credential: 'CYN@8011'
-      },
+      // {
+      //   urls: 'turn:8.160.115.34:3478?transport=udp',
+      //   username: 'NathanCong',
+      //   credential: 'CYN@8011'
+      // },
     ],
     iceTransportPolicy: 'all',
   };
